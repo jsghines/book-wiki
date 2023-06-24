@@ -1,0 +1,15 @@
+version: '3.9'
+services:
+  db:
+    image: postgres:15.3-bookworm
+    ports:
+      - 5434:5432
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: pass
+      POSTGRES_DB: bookdb
+  app:
+    image: nextjs-dev
+    build: .
+    ports:
+      - 3000:3000
