@@ -8,3 +8,8 @@ services:
       POSTGRES_USER: user
       POSTGRES_PASSWORD: pass
       POSTGRES_DB: bookdb
+  app:
+    image: nextjs-dev
+    build: .
+    ports:
+      - 3000:3000
