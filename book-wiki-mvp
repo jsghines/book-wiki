@@ -1,0 +1,17 @@
+Book wiki mission statement 0.1:
+  The goal of book wiki is to enable authors to easily create and navigate complex worlds by creating an easy to
+  navigate system that stores both the story and worlds in one place.
+
+MVP Goals:
+  Many users can create many books with many chapters that have many elements.
+  chapters have the ability to link elements inside of text
+    ex. we reference Joffery Smoshfery, you can highlight him in the chapter and go to the element
+  
+
+Domain definition:
+  book:
+    a collection of chapters that follow a story
+  chapter:
+    a piece of text that contains content
+  elements:
+    pieces of a story, can be a character/location/event
