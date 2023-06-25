@@ -10,20 +10,56 @@ datasource db {
   shadowDatabaseUrl = "postgres://user:pass@localhost:5434/bookdb" // used for migrations
 }
 
+model Element {
+  id        String     @default(cuid()) @id
+  title     String
+  content   String
+  type      ElementType @relation(fields: [typeId], references: [id])
+  typeId    Int
+  books     BookElement[]
+  chapters  ChapterElement[]
+}
+
+model ElementType {
+  id        Int     @default(autoincrement()) @id
+  title     String
+  element   Element[]
+}
+
+model BookElement {
+  id         String     @default(cuid()) @id
+  book       Book @relation(fields: [bookId], references: [id])
+  bookId     String
+  element    Element @relation(fields: [elementId], references: [id])
+  elementId  String
+}
+
+model Attachment {
+  id         String     @default(cuid()) @id
+  storageUrl String
+}
+
+model ChapterElement {
+  id        String     @default(cuid()) @id
+  chapter   Chapter    @relation(fields: [chapterId], references: [id])
+  chapterId String
+  element   Element    @relation(fields: [elementId], references: [id])
+  elementId String
+}
+
+model Chapter {
+  id        String     @default(cuid()) @id
+  title     String
+  bookId    String
+  number    Int
+  content   String
+  elements  ChapterElement[]
+}
+
 model Book {
   id        String     @default(cuid()) @id
   title     String
   published Boolean @default(false)
-  author    User?   @relation(fields: [authorId], references: [id])
-  authorId  String?
-}
-
-model User {
-  id            String       @default(cuid()) @id
-  name          String?
-  email         String?   @unique
-  createdAt     DateTime  @default(now()) @map(name: "created_at")
-  updatedAt     DateTime  @updatedAt @map(name: "updated_at")
-  posts         Book[]
-  @@map(name: "users")
+  authorId  String
+  elements  BookElement[]
 }
